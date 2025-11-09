@@ -137,8 +137,17 @@ import {ERC4626} from "@openzeppelin/contracts/token/ERC20/extensions/ERC4626.so
              }
 
 
+function addStartegy(address _strategy) external onlyManagement{
 
-             
+    require(_strategy != address(0), "!strategy");
+    strategies.push(IStrategy(_strategy));
+    emit StrategyAdded(_strategy);
+
+}
+
+
+
+
      
 
    }
