@@ -80,6 +80,29 @@ import {ERC4626} from "@openzeppelin/contracts/token/ERC20/extensions/ERC4626.so
         }
    }
 
+
+   function _freeFunds( uint256 _amount) internal override {
+       
+      uint256 needed = _amount;
+
+       for(uint i = 0 , i < stratrgies.length && nedded > 0; i++) {
+
+        uint256 available = strategies[i].totalAssests();
+        uint256 toWithdraw = available < needed ? available : needed;
+
+        try strategies[i].withdraw(towithdraw){
+            needed -= toWithdraw;
+        }
+        catch {
+
+        }
+         
+         
+       }
+   }
+
    
+
+
 
  }
