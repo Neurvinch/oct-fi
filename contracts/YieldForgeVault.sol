@@ -174,5 +174,30 @@ function addStartegy(address _strategy) external onlyManagement{
               } catch {}
 
 
+    }
 
+        function totalAssets() public view override returns (uint256) {
+        return _getTotalAssets();
+    }
+    function setHealthCheck(bool _enabled) external onlyManagement {
+        doHealthCheck = _enabled;
+    }
+    function setProfitLimitRatio(uint256 _ratio) external onlyManagement {
+        require(_ratio <= 10000, "!ratio");
+        profitLimitRatio = _ratio;
+    }
+    function setLossLimitRatio(uint256 _ratio) external onlyManagement {
+        require(_ratio <= 10000, "!ratio");
+        lossLimitRatio = _ratio;
+    }
+    function setManagement(address _management) external onlyManagement {
+        management = _management;
+    }
+    function setKeeper(address _keeper) external onlyManagement {
+        keeper = _keeper;
+    }
+    function emergencyWithdraw(uint256 _amount) external {
+        require(msg.sender == emergencyAdmin || msg.sender == owner(), "!emergency");
+        asset.safeTransfer(msg.sender, _amount);
+    }
  }
