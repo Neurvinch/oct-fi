@@ -157,6 +157,21 @@ function addStartegy(address _strategy) external onlyManagement{
 
    }
 
+     function getStrategies() external view returns (address[] memory) {
+        address[] memory _strategies = new address[](strategies.length);
+        for (uint256 i = 0; i < strategies.length; i++)
+            _strategies[i] = address(strategies[i]);
+        return _strategies;
+    }
+
+     
+    function _getTotalAssets() internal view returns (uint256 total) {
+        total = asset.balanceOf(address(this));
+        for (uint256 i = 0; i < strategies.length; i++)
+            try strategies[i].totalAssets() returns (uint256 assets) {
+                total += assets;
+         
+              } catch {}
 
 
 
