@@ -101,7 +101,48 @@ import {ERC4626} from "@openzeppelin/contracts/token/ERC20/extensions/ERC4626.so
        }
    }
 
-   
+   function report() external onlyKeepet returns (uint256 gain) {
+
+     uint256 totalAssests = _getTotalAssests();
+     uint256 previousAssests = lastReportedAssests == 0 ? totalAssests : lastReportedAssests;
+
+     if(totalAssests > previousAssests ) {
+
+        gain = totalAssests - previousAssests;
+     } 
+
+     else {
+
+        uint256 loss = previousAssests - totalAssests;
+
+        if(doHealthCheck && loss > 0) {
+            require(loss <= (previousAssests * lossLimitRatio) / 10000, "loss limit exceeded");
+        }
+     }
+
+        if( doHealthCheck && gain > 0) {
+            require(gain <= (previousAssests * profitLimitRatio) / 10000, "profit limit exceeded");
+
+            lastReportedAssests = totalAssests;
+            accumulatedYield += gain;
+
+            if(gain > 0)  {
+                uint256 shareToMint = _convertToShares(gain, Math.Rounding.Down);
+                _mint(fundingSplitter, shareToMint);
+                emit YieldDonated(gain);
+            } 
+
+             emit ReportExecuted(totalAssests, gain);
+             return gain;       
+             }
+
+
+
+             
+     
+
+   }
+
 
 
 
