@@ -1,3 +1,6 @@
+ // SPDX-License-Identfier: MIT
+pragma solidity ^0.8.30;
+ 
  contract AaveUSDCStrategy is Ownable {
     using SafeERC20 for IERC20;
     IERC20 public constant USDC = IERC20(0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48);
