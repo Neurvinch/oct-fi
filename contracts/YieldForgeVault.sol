@@ -29,6 +29,28 @@ import {ERC4626} from "@openzeppelin/contracts/token/ERC20/extensions/ERC4626.so
     event StartegyRemoved(address indexed strategy);
     event Yielddonated(uint256 amount);
     event ReportExecuted(uint56 totalAssests, uint256 yieldGenerated);
+
+    modifier onlyManagement () {
+        require(msg.sender == management || msg.sender == owner(),"!management");
+        _;
+
+    }
+
+    modifier onlyKeeper () {
+        require(msg.sender == keeper || msg.sender == owner(),"!keeper");
+        _;
+
+ }
+
+   constructor(
+    IERC20 _asset,
+    string memory _name,
+    address _fundingSplitter,
+    address _management,
+    address _keeper,
+    address _emergencyAdmin
+   ) ERC4626() ERC20() Ownable(){
     
+   }
 
  }
