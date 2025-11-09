@@ -7,3 +7,28 @@ import {ERC4626} from "@openzeppelin/contracts/token/ERC20/extensions/ERC4626.so
  import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
  import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
  import {PaymentSplitter} from "@openzeppelin/contracts/finance/PaymentSplitter.sol";
+
+ contract YieldForgeVault is ERC4626, Ownable {
+
+    using SafeERC20 for IERC20;
+
+    address public fundingSplitter;
+    IStrategy public strategies;
+    uint256 public lastReportedAssests;
+    uint256 public accumulatedYield;
+
+    uint256 public profitLimitRatio =  1000;
+    uint256 public lossLimitRatio = 500;
+    bool public doHealthChech = true;
+
+    address public management;
+    address public keeper;
+    address public emergencyAdmin;
+
+    event StartegyAdded(address indexed strategy);
+    event StartegyRemoved(address indexed strategy);
+    event Yielddonated(uint256 amount);
+    event ReportExecuted(uint56 totalAssests, uint256 yieldGenerated);
+    
+
+ }
