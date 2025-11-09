@@ -49,8 +49,18 @@ import {ERC4626} from "@openzeppelin/contracts/token/ERC20/extensions/ERC4626.so
     address _management,
     address _keeper,
     address _emergencyAdmin
-   ) ERC4626() ERC20() Ownable(){
-    
+   ) ERC4626(_asset) ERC20(_name, "YfUSDC") Ownable(msg.sender){
+
+
+      require(address(_asset) != address(0),"!asset");
+        require(_fundingSplitter != address(0),"!fundingSplitter");
+
+        fundingSplitter = _fundingSplitter;
+        management = _management;
+        keeper = _keeper;
+        emergencyAdmin = _emergencyAdmin;
+
+        lastReportedAssests = 0;
    }
 
  }
