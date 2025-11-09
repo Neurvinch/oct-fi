@@ -63,4 +63,23 @@ import {ERC4626} from "@openzeppelin/contracts/token/ERC20/extensions/ERC4626.so
         lastReportedAssests = 0;
    }
 
+
+     function _deployfunds(uint256 amount) internal override {
+
+        if(stratergies.length == 0)  return;
+
+        uint256 perStartegy = amount / stratergies.length;
+
+        for(uint i = 0 , i < stratergies.length; i++) {
+
+           if(perStratgy > 0 ) {
+
+            asset.safeApprove(address(strategies[i]), perStartegy);
+           try strategies[i].deposit(perStartegy) {} catch {}
+           }
+        }
+   }
+
+   
+
  }
