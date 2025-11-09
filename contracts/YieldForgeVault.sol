@@ -145,10 +145,15 @@ function addStartegy(address _strategy) external onlyManagement{
 
 }
 
+     function removeStartegy(uint256 _index) external onlyManagement {
 
+        require(_index < strategies.length, "!index");
 
+        address removed  = address(strategies[_index]);
 
-     
+        strategies[_index] = strategies[strategies.length - 1];
+        strategies.pop();
+        emit StrategyRemoved(removed);
 
    }
 
