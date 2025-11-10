@@ -11,7 +11,7 @@ import './index.css'
 import App from './App.jsx'
 
 
-const ProjectId = import.meta.env.VITE_PROJECT_ID;
+const ProjectId = "3f84877fb445dd3a1c6a2813dcfdb3d0";
  
 const eduTestnet ={
   id:656476 ,
@@ -39,10 +39,11 @@ const config = getDefaultConfig({
 const queryClient = new QueryClient()
 
 const theme = darkTheme({
-  accentColor: '#7b3fe4',
+  accentColor: '#667eea',
   accentColorForeground: "white",
   fontStack : "system",
   overlayBlur: "small",
+  borderRadius: "medium",
 });
 
 createRoot(document.getElementById('root')).render(
